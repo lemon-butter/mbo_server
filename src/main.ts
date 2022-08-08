@@ -6,5 +6,3 @@ async function bootstrap() {
   await app.listen(4001);
 }
 bootstrap();
-git config --global user.email "kim1231401@naver.com"
-git config --global user.name "lemon-butter"
