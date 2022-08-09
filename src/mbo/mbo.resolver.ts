@@ -25,7 +25,7 @@ export class MboResolver {
 
   @Mutation(() => Mbo)
   updateMbo(@Args('updateMboInput') updateMboInput: UpdateMboInput) {
-    return this.mboService.update(updateMboInput.id, updateMboInput);
+    return this.mboService.update(updateMboInput.mboCode, updateMboInput);
   }
 
   @Mutation(() => Mbo)

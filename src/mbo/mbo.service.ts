@@ -11,20 +11,20 @@ export class MboService {
   async create(createMboInput: CreateMboInput) {
     await this.mboRepository.save(createMboInput);
     console.log(createMboInput);
-    return this.findOne(createMboInput.exampleField);
+    return this.findOne(createMboInput.mboCode);
   }
 
   findAll() {
     return `This action returns all mbo`;
   }
 
-  findOne(exampleField: number): Promise<Mbo> {
-    return this.mboRepository.findOneBy({ exampleField });
+  findOne(mboCode: number): Promise<Mbo> {
+    return this.mboRepository.findOneBy({ mboCode });
   }
 
-  async update(exampleField: number, updateMboInput: UpdateMboInput) {
-    await this.mboRepository.update(exampleField, updateMboInput);
-    return this.findOne(updateMboInput.exampleField);
+  async update(mboCode: number, updateMboInput: UpdateMboInput) {
+    await this.mboRepository.update(mboCode, updateMboInput);
+    return this.findOne(updateMboInput.mboCode);
   }
 
   remove(id: number) {

@@ -4,24 +4,34 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MboModule } from './mbo/mbo.module';
 import { Mbo } from './mbo/entities/mbo.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import ormconfig from './config/ormconfig';
+import { join } from 'path';
 
 @Module({
   imports: [
     MboModule,
+    ConfigModule.forRoot({
+      isGlobal:true,
+      load:[ormconfig]
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/common/graphql/schema.gql',
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: '127.0.0.1',
-      port: 3306,
-      username: 'root',
-      password: '915502',
-      database: 'onesoul',
-      entities: [Mbo],
-      synchronize: true, // 배포시에는 컬럼값수정등을 하게될경우 데이터가 날아가므로 배포환경에서는 false
-      logging: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('database.host'),
+        port: configService.get('database.port'),
+        username: configService.get('database.user'),
+        password: configService.get('database.password'),
+        database: configService.get('database.name'),
+        entities: [join(__dirname, '/**/*.entity.js')],
+        synchronize: true,
+      }),
     }),
   ],
   controllers: [],

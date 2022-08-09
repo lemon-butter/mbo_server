@@ -4,7 +4,10 @@
 
 type Mbo {
   """Example field (placeholder)"""
-  exampleField: Int!
+  mboCode: Int!
+
+  """사용자 코드"""
+  memberCode: Int!
 }
 
 type Query {
@@ -19,11 +22,9 @@ type Mutation {
 
 input CreateMboInput {
   """Example field (placeholder)"""
-  exampleField: Int!
+  mboCode: Int!
 }
 
 input UpdateMboInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  mboCode: Int!
 }
