@@ -8,8 +8,10 @@ import { Mbo } from './entities/mbo.entity';
 @Injectable()
 export class MboService {
   constructor(@InjectRepository(Mbo) private mboRepository: Repository<Mbo>) {}
-  create(createMboInput: CreateMboInput) {
-    return 'This action adds a new mbo';
+  async create(createMboInput: CreateMboInput) {
+    await this.mboRepository.save(createMboInput);
+    console.log(createMboInput);
+    return this.findOne(createMboInput.exampleField);
   }
 
   findAll() {
@@ -20,8 +22,9 @@ export class MboService {
     return this.mboRepository.findOneBy({ exampleField });
   }
 
-  update(id: number, updateMboInput: UpdateMboInput) {
-    return `This action updates a #${id} mbo`;
+  async update(exampleField: number, updateMboInput: UpdateMboInput) {
+    await this.mboRepository.update(exampleField, updateMboInput);
+    return this.findOne(updateMboInput.exampleField);
   }
 
   remove(id: number) {
