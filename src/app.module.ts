@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MboModule } from './mbo/mbo.module';
-import { Mbo } from './mbo/entities/mbo.entity';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import ormconfig from './config/ormconfig';
 import { join } from 'path';
+import ormconfig from './config/ormconfig';
+import { MboModule } from './mbo/mbo.module';
+import { MemberModule } from './member/member.module';
 
 @Module({
   imports: [
@@ -33,6 +33,7 @@ import { join } from 'path';
         synchronize: true,
       }),
     }),
+    MemberModule,
   ],
   controllers: [],
   providers: [],

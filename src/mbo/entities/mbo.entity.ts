@@ -2,6 +2,11 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { json } from 'stream/consumers';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+export enum mboType {
+  progress = 'progress',
+  list = 'list',
+}
+
 @Entity()
 @ObjectType()
 export class Mbo {
@@ -18,8 +23,28 @@ export class Mbo {
 
   @Field(() => Int, { description: '사용자 코드' })
   @Column({
-    comment: '사용자 코드',
     type: 'varchar',
   })
-  memberCode: number;
+
+  @Field(() => String, { description: 'mbo 타입(list, progress)' })
+  @Column({
+      type: 'enum',
+      enum: mboType
+  })
+  mboType: string;
+
+  @Field(() => String, { description: '본문' })
+  @Column({
+      type: 'text',
+      nullable: true,
+  })
+  mboContent: string;
+
+  @Field(() => String, { description: '작성일' })
+  @Column({
+      type: 'datetime',
+      default: () => 'NOW()',
+      nullable: true,
+  })
+  regDate: Date;
 }
