@@ -1,26 +1,53 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMemberInput } from './dto/create-member.input';
-import { UpdateMemberInput } from './dto/update-member.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { In, Repository } from 'typeorm';
+import { Member } from './entities/member.entity';
 
 @Injectable()
 export class MemberService {
-  create(createMemberInput: CreateMemberInput) {
-    return 'This action adds a new member';
+  constructor(@InjectRepository(Member) private memberRepository: Repository<Member>) {
+  }
+
+  async create(member: Member): Promise<void> {
+    await this.memberRepository.save(member);
   }
 
   findAll() {
-    return `This action returns all member`;
+    return this.memberRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} member`;
+  findOne(memberCode: number) {
+    const kkk = this.memberRepository.findOneBy({memberCode});
+    console.log(kkk);
+    return kkk;
+  }
+  
+  findFromName(memberName: string) {
+    const kkk = this.memberRepository.find({
+      where:{
+        memberName:memberName
+      }
+    });
+    console.log(kkk);
+    return kkk;
+  }
+  
+  findFromCodes(memberCodes: String[]) {
+    const kkk = this.memberRepository.find({
+      where:{
+        memberCode: In(memberCodes)
+      }
+    });
+    console.log(kkk);
+    return kkk;
   }
 
-  update(id: number, updateMemberInput: UpdateMemberInput) {
-    return `This action updates a #${id} member`;
+  async update(memberCode: number, member: Member): Promise<void> {
+    console.log("#1234");
+    await this.memberRepository.update(memberCode, member);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} member`;
+  async remove(memberCode: number): Promise<void> {
+    await this.memberRepository.delete(memberCode);
   }
 }

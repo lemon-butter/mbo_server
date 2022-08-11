@@ -31,6 +31,7 @@ import { MemberModule } from './member/member.module';
         database: configService.get('database.name'),
         entities: [join(__dirname, '/**/*.entity.js')],
         synchronize: true,
+        logging:true
       }),
     }),
     MemberModule,

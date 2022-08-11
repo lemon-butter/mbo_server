@@ -1,5 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { json } from 'stream/consumers';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum mboType {
@@ -11,7 +10,7 @@ export enum mboType {
 @ObjectType()
 export class Mbo {
   @PrimaryGeneratedColumn()
-  @Field(() => Int, { description: 'Example field (placeholder)' })
+  @Field(() => Int, { description: 'MBO 테이블 고유번호' })
   mboCode: number;
 
   // 멤버 성호 정범
@@ -23,8 +22,9 @@ export class Mbo {
 
   @Field(() => Int, { description: '사용자 코드' })
   @Column({
-    type: 'varchar',
+    type: 'int',
   })
+  memberCode: number
 
   @Field(() => String, { description: 'mbo 타입(list, progress)' })
   @Column({
