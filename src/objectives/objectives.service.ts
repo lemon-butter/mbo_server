@@ -22,6 +22,7 @@ export class ObjectivesService {
   findAll() {
     return this.objectiveRepository.find();
   }
+
   findOne(objectiveCode: number) {
     return this.objectiveRepository.findOneBy({ objectiveCode });
   }
