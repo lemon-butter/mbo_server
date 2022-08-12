@@ -1,10 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ToDoList } from 'src/to-do-list/entities/to-do-list.entity';
-import { DeleteResult, ObjectID, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateObjectiveInput } from './dto/create-objective.input';
-import { UpdateObjectiveInput } from './dto/update-objective.input';
-import { UpdateObjectNameInput } from './dto/update_objective_name.input';
 import { Objective } from './entities/objective.entity';
 
 @Injectable()
