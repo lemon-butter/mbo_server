@@ -7,14 +7,50 @@ type Mbo {
   exampleField: Int!
 }
 
+type Objective {
+  """목표 번호"""
+  objectiveCode: Int!
+
+  """목표"""
+  objectiveName: String!
+
+  """목표 진행률"""
+  percentage: Int!
+}
+
+type ToDoList {
+  """할 일 번호"""
+  toDoListCode: Int!
+
+  """목표 번호"""
+  objectiveCode: Int!
+
+  """할 일"""
+  toDoThing: String!
+}
+
 type Query {
-  mbo(id: Int!): Mbo!
+  mbo1: [Mbo!]!
+  mbo2(id: Int!): Mbo!
+  objectives: [Objective!]!
+  objective(id: Int!): Objective!
+  toDoList: [ToDoList!]!
+  toDoThing(id: Int!): ToDoList!
+  partList(id: Int!): [ToDoList!]!
 }
 
 type Mutation {
   createMbo(createMboInput: CreateMboInput!): Mbo!
   updateMbo(updateMboInput: UpdateMboInput!): Mbo!
   removeMbo(id: Int!): Mbo!
+  createObjective(createObjectiveInput: CreateObjectiveInput!): Objective!
+  updateObjective(updateObjectNameInput: UpdateObjectNameInput!): Boolean!
+  removeObjective(id: Int!): Boolean!
+  increasePercentage(updateObjectiveInput: UpdateObjectiveInput!): Boolean!
+  decreasePercentage(updateObjectiveInput: UpdateObjectiveInput!): Boolean!
+  createToDoList(createToDoListInput: CreateToDoListInput!): ToDoList!
+  updateToDoList(updateToDoListInput: UpdateToDoListInput!): ToDoList!
+  removeToDoList(id: Int!): Boolean!
 }
 
 input CreateMboInput {
@@ -25,5 +61,43 @@ input CreateMboInput {
 input UpdateMboInput {
   """Example field (placeholder)"""
   exampleField: Int
+  id: Int!
+}
+
+input CreateObjectiveInput {
+  """목표"""
+  objectiveName: String!
+}
+
+input UpdateObjectNameInput {
+  """목표"""
+  objectiveName: String!
+
+  """목표 번호"""
+  objectiveCode: Int!
+}
+
+input UpdateObjectiveInput {
+  """목표"""
+  objectiveName: String
+
+  """목표 번호"""
+  objectiveCode: Int!
+}
+
+input CreateToDoListInput {
+  """목표 번호"""
+  objectiveCode: Int!
+
+  """할 일"""
+  toDoThing: String!
+}
+
+input UpdateToDoListInput {
+  """목표 번호"""
+  objectiveCode: Int
+
+  """할 일"""
+  toDoThing: String
   id: Int!
 }

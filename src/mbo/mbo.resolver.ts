@@ -13,12 +13,12 @@ export class MboResolver {
     return this.mboService.create(createMboInput);
   }
 
-  @Query(() => [Mbo], { name: 'mbo' })
+  @Query(() => [Mbo], { name: 'mbo1' })
   findAll() {
     return this.mboService.findAll();
   }
 
-  @Query(() => Mbo, { name: 'mbo' })
+  @Query(() => Mbo, { name: 'mbo2' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.mboService.findOne(id);
   }

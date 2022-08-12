@@ -4,6 +4,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MboModule } from './mbo/mbo.module';
 import { Mbo } from './mbo/entities/mbo.entity';
+import { ObjectivesModule } from './objectives/objectives.module';
+import { ToDoListModule } from './to-do-list/to-do-list.module';
 
 @Module({
   imports: [
@@ -18,11 +20,13 @@ import { Mbo } from './mbo/entities/mbo.entity';
       port: 3306,
       username: 'root',
       password: '915502',
-      database: 'onesoul',
-      entities: [Mbo],
+      database: 'mbo',
+      entities: ['dist/**/**/*.entity{.js,.ts}'],
       synchronize: true, // 배포시에는 컬럼값수정등을 하게될경우 데이터가 날아가므로 배포환경에서는 false
       logging: true,
     }),
+    ObjectivesModule,
+    ToDoListModule,
   ],
   controllers: [],
   providers: [],
