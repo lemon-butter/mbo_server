@@ -49,7 +49,7 @@ type Mutation {
   increasePercentage(updateObjectiveInput: UpdateObjectiveInput!): Boolean!
   decreasePercentage(updateObjectiveInput: UpdateObjectiveInput!): Boolean!
   createToDoList(createToDoListInput: CreateToDoListInput!): ToDoList!
-  updateToDoList(updateToDoListInput: UpdateToDoListInput!): ToDoList!
+  updateToDoList(updateToDoListInput: UpdateToDoListInput!): Boolean!
   removeToDoList(id: Int!): Boolean!
 }
 
@@ -98,6 +98,8 @@ input UpdateToDoListInput {
   objectiveCode: Int
 
   """할 일"""
-  toDoThing: String
-  id: Int!
+  toDoThing: String!
+
+  """할 일 번호"""
+  toDoListCode: Int!
 }

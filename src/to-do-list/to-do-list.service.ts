@@ -28,8 +28,15 @@ export class ToDoListService {
     return `This action returns a #${id} toDoList`;
   }
 
-  update(id: number, updateToDoListInput: UpdateToDoListInput) {
-    return `This action updates a #${id} toDoList`;
+  async update(toDoListCode: number, toDoThing: string) {
+    const result = await this.toDoListRepository.update(toDoListCode, {
+      toDoThing: toDoThing,
+    });
+    if (result.affected === 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   remove(toDoListCode: number): Promise<DeleteResult> {

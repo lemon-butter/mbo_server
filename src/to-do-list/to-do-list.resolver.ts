@@ -25,13 +25,13 @@ export class ToDoListResolver {
     return this.toDoListService.findOne(id);
   }
 
-  @Mutation(() => ToDoList)
+  @Mutation(() => Boolean)
   updateToDoList(
     @Args('updateToDoListInput') updateToDoListInput: UpdateToDoListInput,
   ) {
     return this.toDoListService.update(
-      updateToDoListInput.id,
-      updateToDoListInput,
+      updateToDoListInput.toDoListCode,
+      updateToDoListInput.toDoThing,
     );
   }
 
