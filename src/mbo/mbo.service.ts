@@ -8,6 +8,7 @@ import { Mbo } from './entities/mbo.entity';
 @Injectable()
 export class MboService {
   constructor(@InjectRepository(Mbo) private mboRepository: Repository<Mbo>) {}
+
   async create(createMboInput: CreateMboInput) {
     await this.mboRepository.save(createMboInput);
     console.log(createMboInput);
@@ -15,7 +16,7 @@ export class MboService {
   }
 
   findAll() {
-    return `This action returns all mbo`;
+    return this.mboRepository.find();
   }
 
   findOne(exampleField: number): Promise<Mbo> {
