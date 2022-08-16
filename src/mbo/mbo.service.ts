@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DataLoader from 'dataloader';
+// import DataLoader from 'dataloader';
+import * as DataLoader from 'dataloader'
 import { In, Repository } from 'typeorm';
 import { CreateMboInput } from './dto/create-mbo.input';
 import { UpdateMboInput } from './dto/update-mbo.input';
@@ -52,6 +53,16 @@ export class MboService {
   myBatchGetUsers = (keys:number[]) => {
     return new Promise((resolve, reject) => {});
   }
+
+  public readonly batchAuthors = new DataLoader(async (authorIds: number[]) => {
+    const users = await this.findFromMemberCodes(authorIds);
+
+    
+    const usersMap = new Map(users.map(user => [user.mboCode, Mbo]));
+    console.log('usersMap', usersMap)
+    console.log('authorIds', authorIds)
+    return authorIds.map(memberCode => usersMap.get(memberCode));
+  })
 
   async findFromMemberCodes(memberCodes: number[]): Promise<Mbo[]> {
     console.log("k22k2:", memberCodes)

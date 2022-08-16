@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import ormconfig from './config/ormconfig';
 import { MboModule } from './mbo/mbo.module';
 import { MemberModule } from './member/member.module';
@@ -36,7 +38,7 @@ import { MemberModule } from './member/member.module';
     }),
     MemberModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -1,5 +1,4 @@
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import DataLoader from 'dataloader';
 import { Mbo } from 'src/mbo/entities/mbo.entity';
 import { MboService } from 'src/mbo/mbo.service';
 import { Member } from './entities/member.entity';
@@ -69,14 +68,16 @@ export class MemberResolver {
     // console.log(`posts(user: ${JSON.stringify(member)})`);
     const { memberCode } = member;
 
-    return this.mboService.findFromMemberCode(memberCode);
-    const userLoader = new DataLoader<number, Mbo>(
-      async (memberCodes:readonly number[]) =>
-        await this.mboService.findFromMemberCodes(memberCodes as number[])
-    );
+    return this.mboService.batchAuthors.load(memberCode);
 
-    userLoader.load(memberCode);
+    // return this.mboService.findFromMemberCode(memberCode);
+    // const userLoader = new DataLoader<number, Mbo>(
+    //   async (memberCodes:readonly number[]) =>
+    //     await this.mboService.findFromMemberCodes(memberCodes as number[])
+    // );
 
-    return null;
+    // userLoader.load(memberCode);
+
+    // return null;
   }
 }
