@@ -11,6 +11,9 @@ type Objective {
   """목표 번호"""
   objectiveCode: Int!
 
+  """사용자 정보"""
+  userFlag: Int!
+
   """목표"""
   objectiveName: String!
 
@@ -34,6 +37,7 @@ type Query {
   mbo2(id: Int!): Mbo!
   objectives: [Objective!]!
   objective(id: Int!): Objective!
+  selectObjectives(id: Int!): [Objective!]!
   toDoList: [ToDoList!]!
   toDoThing(id: Int!): ToDoList!
   partList(id: Int!): [ToDoList!]!
@@ -65,11 +69,17 @@ input UpdateMboInput {
 }
 
 input CreateObjectiveInput {
+  """사용자 정보"""
+  userFlag: Int!
+
   """목표"""
   objectiveName: String!
 }
 
 input UpdateObjectNameInput {
+  """사용자 정보"""
+  userFlag: Int
+
   """목표"""
   objectiveName: String!
 
@@ -78,6 +88,9 @@ input UpdateObjectNameInput {
 }
 
 input UpdateObjectiveInput {
+  """사용자 정보"""
+  userFlag: Int
+
   """목표"""
   objectiveName: String
 

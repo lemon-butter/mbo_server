@@ -77,4 +77,10 @@ export class ObjectivesService {
       return true;
     }
   }
+
+  findSelectUser(userFlag: number) {
+    return this.objectiveRepository.find({
+      where: { userFlag: userFlag },
+    });
+  }
 }

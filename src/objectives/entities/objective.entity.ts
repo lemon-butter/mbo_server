@@ -9,6 +9,10 @@ export class Objective {
   objectiveCode: number;
 
   @Column()
+  @Field(() => Int, { description: '사용자 정보' })
+  userFlag: number;
+
+  @Column()
   @Field(() => String, { description: '목표' })
   objectiveName: string;
 

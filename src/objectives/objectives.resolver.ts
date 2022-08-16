@@ -64,4 +64,9 @@ export class ObjectivesResolver {
       updateObjectiveInput.objectiveCode,
     );
   }
+
+  @Query(() => [Objective], { name: 'selectObjectives' })
+  findBy(@Args('id', { type: () => Int }) id: number) {
+    return this.objectivesService.findSelectUser(id);
+  }
 }
