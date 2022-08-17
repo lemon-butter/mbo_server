@@ -14,8 +14,9 @@ import { join } from 'path';
   imports: [
     MboModule,
     ConfigModule.forRoot({
-      isGlobal:true,
-      load:[ormconfig]
+      envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
+      isGlobal: true,
+      load: [ormconfig],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -33,7 +34,7 @@ import { join } from 'path';
         database: configService.get('database.name'),
         entities: [join(__dirname, '/**/*.entity.js')],
         synchronize: true,
-        logging:true
+        logging: true,
       }),
     }),
     ObjectivesModule,
