@@ -1,7 +1,7 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateMboInput {
+export class CreateMemberInput {
   @Field(() => Int, { description: 'Example field (placeholder)' })
-  mboCode: number;
+  exampleField: number;
 }
