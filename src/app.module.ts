@@ -1,8 +1,14 @@
-import { Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import ormconfig from './config/ormconfig';
 import { MboModule } from './mbo/mbo.module';
+import { MemberModule } from './member/member.module';
 import { Mbo } from './mbo/entities/mbo.entity';
 import { ObjectivesModule } from './objectives/objectives.module';
 import { ToDoListModule } from './to-do-list/to-do-list.module';
@@ -36,10 +42,11 @@ import { join } from 'path';
         logging:true
       }),
     }),
+    MemberModule,
     ObjectivesModule,
     ToDoListModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
