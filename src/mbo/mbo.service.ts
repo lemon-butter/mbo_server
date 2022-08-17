@@ -28,13 +28,16 @@ export class MboService {
   async findFromMemberCode(memberCode: number) {
     console.log("memberCode", memberCode);
     // console.log('first');
+    // return await this.mboRepository.findOneBy(memberCode);
+    const kkk = this.mboRepository.findOneBy({memberCode});
+    return kkk;
 
-    async function batchFunction(keys) {
-      const results = await this.findFromMemberCodes(keys)
-      return keys.map(key => results[key] || new Error(`No result for ${key}`))
-    }
+    // async function batchFunction(keys) {
+    //   const results = await this.findFromMemberCodes(keys)
+    //   return keys.map(key => results[key] || new Error(`No result for ${key}`))
+    // }
     
-    const loader = new DataLoader(batchFunction)
+    // const loader = new DataLoader(batchFunction)
     
     
     // const userLoader = new DataLoader(keys => batchFunction(keys));
@@ -42,7 +45,7 @@ export class MboService {
     //   (key) => {console.log(key)}
     // , {cache:false});
 
-    await loader.load(memberCode)
+    // await loader.load(memberCode)
 
     // console.log(userLoader);
 
@@ -58,10 +61,13 @@ export class MboService {
     const users = await this.findFromMemberCodes(authorIds);
 
     
-    const usersMap = new Map(users.map(user => [user.mboCode, Mbo]));
-    console.log('usersMap', usersMap)
+    // const usersMap = new Map(users.map(user => [user.mboCode, Mbo]));
+    // console.log('usersMap', usersMap)
     console.log('authorIds', authorIds)
-    return authorIds.map(memberCode => usersMap.get(memberCode));
+
+    return authorIds.map((memberCode) => users.filter(Mbo => Mbo.memberCode === memberCode))
+    // return authorIds.map(memberCode => usersMap.get(memberCode));
+    // return authorIds.map((memberCode) => users.filter(Mbo)=>Mbo.memberCode === authorIds));
   })
 
   async findFromMemberCodes(memberCodes: number[]): Promise<Mbo[]> {

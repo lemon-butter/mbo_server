@@ -63,12 +63,16 @@ export class MemberResolver {
     return this.memberService.remove(id);
   }
 
-  @ResolveField()
+  @ResolveField(() => [Mbo])
   async mbos(@Parent() member: Member) {
+
     // console.log(`posts(user: ${JSON.stringify(member)})`);
     const { memberCode } = member;
 
-    return this.mboService.batchAuthors.load(memberCode);
+    const result = this.mboService.batchAuthors.load(memberCode)
+    return (await result).filter(Mbo => Mbo.memberCode === memberCode);
+
+    // return this.mboService.findFromMemberCode(memberCode);
 
     // return this.mboService.findFromMemberCode(memberCode);
     // const userLoader = new DataLoader<number, Mbo>(
