@@ -18,7 +18,7 @@ export class MboService {
   }
 
   findAll() {
-    return `This action returns all mbo`;
+    return this.mboRepository.find();
   }
 
   findOne(mboCode: number): Promise<Mbo> {

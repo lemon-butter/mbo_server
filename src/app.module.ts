@@ -9,6 +9,12 @@ import { AppService } from './app.service';
 import ormconfig from './config/ormconfig';
 import { MboModule } from './mbo/mbo.module';
 import { MemberModule } from './member/member.module';
+import { Mbo } from './mbo/entities/mbo.entity';
+import { ObjectivesModule } from './objectives/objectives.module';
+import { ToDoListModule } from './to-do-list/to-do-list.module';
+import ormconfig from './config/ormconfig';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -37,6 +43,8 @@ import { MemberModule } from './member/member.module';
       }),
     }),
     MemberModule,
+    ObjectivesModule,
+    ToDoListModule,
   ],
   controllers: [AppController],
   providers: [AppService],
